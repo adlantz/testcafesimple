@@ -1,0 +1,62 @@
+.lists {
+  display: flex;
+  flex-direction: row;
+  padding: 50px;
+  justify-content: space-around;
+}
+
+.tasklist {
+  width: 25%;
+  border: 1px solid;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.remove {
+  color: red;
+  display: none;
+  border: 0;
+  margin-left: 10px;
+}
+
+.task:hover > .remove {
+  display: inline;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 10px;
+  border: solid 3px black;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.text {
+  vertical-align: middle;
+  width: 70%;
+  border: 1px solid white;
+  font-size: 15px;
+}
+
+.text:hover {
+  border: 1px solid black;
+}
+
+.text::before {
+  border: 2px solid;
+  visibility: hidden;
+}
+
+.completed {
+  border: 1px solid;
+  width: 25%;
+  padding: 10px;
+}

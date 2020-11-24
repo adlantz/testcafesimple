@@ -1,0 +1,34 @@
+
+<div class = "lists">
+  <div class="tasklist">
+    To do items
+    <div  *ngFor="let task of tasks" >
+      <div class = "task">
+        <div (click)="markCompleted(task)" (click)="removeItem(task)" class="dot"></div>
+        <input class = text (keyup.enter) = "addItem()" [(ngModel)]="task.name"/>
+        <button (click)="removeItem(task)" class = "remove">X</button>
+      </div>
+    </div>
+
+
+   <input id="task-input" (keyup.enter) = "addItem()" [(ngModel)]="task" placeholder="add new task..."/>
+
+  </div>
+
+  <div class = "completed">
+    Completed Items
+    <ul>
+      <div *ngFor="let taskc of completedItems">
+      <li class = "task">
+        {{taskc.name}}
+        <button (click)="removeCompleteItem(taskc)" class = "remove">X</button>
+      </li>
+      </div>
+    </ul>
+</div>
+</div>
+
+
+
+
+
