@@ -1,34 +1,48 @@
 
+<ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
 <div class = "lists">
   <div class="tasklist">
-    To do items
-    <div  *ngFor="let task of tasks" >
+    <button (click) ="archive()" class="archive">Archive</button>
+    <h3> To Do Items</h3>
+    <ng-container  *ngFor="let task of tasks" >
       <div class = "task">
-        <div (click)="markCompleted(task)" (click)="removeItem(task)" class="dot"></div>
-        <input class = text (keyup.enter) = "addItem()" [(ngModel)]="task.name"/>
-        <button (click)="removeItem(task)" class = "remove">X</button>
+        <div *ngIf="task.completed === false" (click)="toggleCompleted(task)"  class="dot"></div>
+        <div *ngIf="task.completed === true" (click)="toggleCompleted(task)"  class="fulldot"></div>
+        <input class = "text" (keyup.enter) = "addItem()" [(ngModel)]="task.name"/>
+        <button (click)="removeItem(task)" class = "remove">╳</button>
       </div>
-    </div>
+    </ng-container>
 
 
-   <input id="task-input" (keyup.enter) = "addItem()" [(ngModel)]="task" placeholder="add new task..."/>
+    <div>
+      <div class="dot"></div>
+      <input id="task-input" (keyup.enter) = "addItem()" [(ngModel)]="taskname" placeholder="add new task..."/>
+   </div>
+
 
   </div>
 
   <div class = "completed">
-    Completed Items
+    <h3>Completed Items</h3>
     <ul>
-      <div *ngFor="let taskc of completedItems">
+      <ng-container *ngFor="let taskc of completedItems">
       <li class = "task">
+
         {{taskc.name}}
+
         <button (click)="removeCompleteItem(taskc)" class = "remove">X</button>
       </li>
-      </div>
+      </ng-container>
     </ul>
 </div>
 </div>
 
+</ng-container>
 
 
 
-
+<ng-template #loggedOut>
+  <div class="login">
+  Welcome,<br>Please Log In
+</div>
+</ng-template>

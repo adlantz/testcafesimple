@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from '../item';
+import { TASK } from '../task'
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-list',
@@ -11,31 +12,25 @@ export class ListComponent implements OnInit {
 
 
   tasks = [];
-
   completedItems = [];
-
-  task: string;
-
-
+  task: TASK;
+  taskname: string = '';
 
 
-  addingItem: boolean = false;
-  mouseOver: boolean = false;
 
-  constructor() { }
+  constructor(public auth: AuthService) { }
+
 
   ngOnInit(): void {
   }
 
 
-  addToggle(){
-    this.addingItem = !this.addingItem;
-  }
-
   addItem(){
-   this.tasks.push({name: this.task, completed: false});
-   this.task = '';
-   this.addingItem = false;
+   if (this.taskname !== '')
+   {
+    this.tasks.push({name: this.taskname, completed: false});
+    this.taskname = '';
+   }
   }
 
   removeItem(taskDelete: string){
@@ -54,13 +49,28 @@ export class ListComponent implements OnInit {
 
   }
 
-  markCompleted(taskComplete: string){
-    let index: number = this.tasks.indexOf(taskComplete,0);
-    if (index > -1) {
-      this.tasks.splice(index, 1);
-   }
+  toggleCompleted(taskComplete: TASK){
+    taskComplete.completed = !taskComplete.completed;
+  }
 
-   this.completedItems.push(taskComplete);
+  archive(){
+
+      // this.removeItem(task)
+      // this.completedItems.push(task)
+      // if (task.completed == true){
+      //   this.removeItem(task)
+      //   this.completedItems.push(task)
+      // }
+
+    for (var _i = 0, task_1 = this.tasks; _i < this.tasks.length; _i++) {
+      var task = task_1[_i];
+      if (task.completed == true){
+        this.removeItem(task)
+        this.completedItems.push(task)
+        _i--
+      }
+     }
+
 
   }
 
